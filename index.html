@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAS Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/portainer.png">
+</head>
+<body>
+
+  <header>
+    <h1>NAS Portal</h1>
+    <p>Home Lab · Ahmed</p>
+  </header>
+
+  <main>
+    <div id="service-grid" class="grid">
+      <!-- Cards will be injected here by app.js -->
+    </div>
+  </main>
+
+  <footer class="footer-info">
+    <div class="legend-item">
+      <div class="legend-dot online"></div>
+      <span>En ligne</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot checking"></div>
+      <span>Vérification</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot offline"></div>
+      <span>Hors ligne</span>
+    </div>
+    <div style="margin-left: auto; opacity: 0.7;">
+      Mise à jour toutes les 30s
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

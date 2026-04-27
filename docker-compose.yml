@@ -1,0 +1,11 @@
+services:
+  nas-portal:
+    build: .
+    container_name: nas-portal
+    ports:
+      - "3000:80"
+    environment:
+      - NAS_HOST
+      - CHECK_INTERVAL
+      - FETCH_TIMEOUT
+    restart: unless-stopped

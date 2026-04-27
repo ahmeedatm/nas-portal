@@ -1,0 +1,7 @@
+.git
+.superpowers
+docs
+docker-compose.yml
+Dockerfile
+.dockerignore
+README.md
