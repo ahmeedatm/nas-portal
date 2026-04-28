@@ -3,9 +3,6 @@
  * Edit this file to change your host or check parameters.
  */
 const CONFIG = {
-  // The base address of your NAS (IP or hostname)
-  NAS_HOST: '192.168.1.16',
-  
   // How often to check service status (in milliseconds)
   CHECK_INTERVAL: 30000,
   
