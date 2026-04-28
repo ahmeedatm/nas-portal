@@ -1,0 +1,63 @@
+---
+theme: dark
+jwt_secret: 7d1518247ce61aac259c1fb6d3a95f52b5ff49bbecfa60dde40d2474026b9792
+default_redirection_url: https://azru.uk
+
+server:
+  host: 0.0.0.0
+  port: 9091
+
+log:
+  level: info
+
+totp:
+  issuer: azru.uk
+  period: 30
+  skew: 1
+
+authentication_backend:
+  file:
+    path: /config/users_database.yml
+    password:
+      algorithm: bcrypt
+      iterations: 12
+
+access_control:
+  default_policy: deny
+  rules:
+    # Portal principal — accès libre
+    - domain: azru.uk
+      policy: bypass
+
+    # Services media — accès libre (ils ont leur propre auth)
+    - domain:
+        - jellyfin.azru.uk
+        - jellyseerr.azru.uk
+        - homeassistant.azru.uk
+      policy: bypass
+
+    # Tous les autres services — auth requise
+    - domain: "*.azru.uk"
+      policy: one_factor
+
+session:
+  name: authelia_session
+  secret: ccd0ea311383be55387f78482a0bfb59f17df21d61ea97d42b3c62843871345d
+  expiration: 12h
+  inactivity: 30m
+  remember_me_duration: 7d
+  domain: azru.uk
+
+regulation:
+  max_retries: 3
+  find_time: 2m
+  ban_time: 10m
+
+storage:
+  encryption_key: 6ca0597275e2a5a938d066510eae66c9766f53a657ecb0b87080b7a902d64b00
+  local:
+    path: /config/db.sqlite3
+
+notifier:
+  filesystem:
+    filename: /config/notification.txt

@@ -8,11 +8,35 @@ services:
       - CHECK_INTERVAL
       - FETCH_TIMEOUT
     restart: unless-stopped
+    networks:
+      - proxy
 
   wetty:
     image: wettyoss/wetty
     container_name: wetty
-    command: --ssh-host 192.168.1.16 --ssh-user root --port 3001 --base /
+    command: --ssh-host 192.168.1.16 --ssh-user ahmed --port 3001 --base /
     ports:
       - "3001:3001"
     restart: unless-stopped
+    networks:
+      - proxy
+
+  authelia:
+    image: authelia/authelia:latest
+    container_name: authelia
+    volumes:
+      - ./authelia:/config
+    ports:
+      - "9091:9091"
+    restart: unless-stopped
+    networks:
+      - proxy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9091/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  proxy:
+    driver: bridge

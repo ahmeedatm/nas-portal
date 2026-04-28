@@ -1,0 +1,8 @@
+---
+users:
+  ahmeedatm:
+    displayname: "Ahmed Atmane"
+    password: "$2b$12$qR0mgmyi0LbmEr9GduWqgu0JRW.WOS1q/XFcEF8vm4YSKDf6fU7ye"
+    email: ahmeeatm@gmail.com
+    groups:
+      - admins
