@@ -8,3 +8,11 @@ services:
       - CHECK_INTERVAL
       - FETCH_TIMEOUT
     restart: unless-stopped
+
+  wetty:
+    image: wettyoss/wetty
+    container_name: wetty
+    command: --ssh-host 192.168.1.16 --ssh-user root --port 3001 --base /
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
