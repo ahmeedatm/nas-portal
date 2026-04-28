@@ -3,6 +3,9 @@ FROM nginx:alpine
 # Installation de gettext pour avoir envsubst
 RUN apk add --no-cache gettext
 
+# Copie de la configuration nginx sécurisée
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Dossier de travail Nginx
 WORKDIR /usr/share/nginx/html
 
