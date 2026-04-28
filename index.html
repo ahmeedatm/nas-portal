@@ -22,6 +22,23 @@
 
   <div id="service-grid" class="grid"></div>
 
+  <div id="terminal-modal" class="terminal-modal" role="dialog" aria-modal="true" aria-label="SSH Terminal">
+    <div class="terminal-modal-content">
+      <div class="terminal-modal-header">
+        <div class="terminal-modal-traffic">
+          <span class="tm-dot tm-dot--red" id="terminal-close" title="Fermer"></span>
+          <span class="tm-dot tm-dot--yellow"></span>
+          <span class="tm-dot tm-dot--green"></span>
+        </div>
+        <span class="terminal-modal-title">root@nas — ssh</span>
+        <div class="terminal-modal-traffic" style="visibility:hidden">
+          <span class="tm-dot"></span><span class="tm-dot"></span><span class="tm-dot"></span>
+        </div>
+      </div>
+      <iframe id="terminal-iframe" src="" title="SSH Terminal"></iframe>
+    </div>
+  </div>
+
   <script src="config.js?v=2"></script>
   <script src="app.js?v=2"></script>
 </body>

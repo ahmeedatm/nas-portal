@@ -11,7 +11,7 @@ const SERVICES = [
   { name: 'Jellyseerr', icon: 'jellyseerr', desc: 'Demandes médias', subdomain: 'jellyseerr' },
   { name: 'n8n', icon: 'n8n', desc: 'Automatisations', subdomain: 'n8n' },
   { name: 'Bazarr', icon: 'bazarr', desc: 'Sous-titres', subdomain: 'bazarr' },
-  { name: 'SSH Terminal', icon: 'terminal', desc: 'Accès SSH', subdomain: 'ssh' }
+  { name: 'SSH Terminal', icon: 'terminal', desc: 'Accès SSH', subdomain: 'ssh', modal: true }
 ];
 
 function getServiceUrl(subdomain) {
@@ -22,12 +22,27 @@ function renderCards() {
   const grid = document.getElementById('service-grid');
   grid.innerHTML = SERVICES.map((service, index) => {
     const url = getServiceUrl(service.subdomain);
+    if (service.modal) {
+      return `
+        <div class="card" data-index="${index}" data-modal-url="${url}" role="button" tabindex="0">
+          <div class="status-dot checking"></div>
+          <div class="card-icon">
+            <img src="${CONFIG.ICON_BASE_URL}${service.icon}.png"
+                 alt="${service.name}"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span style="display:none;">${service.name.substring(0, 2).toUpperCase()}</span>
+          </div>
+          <div class="card-name">${service.name}</div>
+          <div class="card-desc">${service.desc}</div>
+        </div>
+      `;
+    }
     return `
       <a href="${url}" class="card" target="_blank" rel="noopener noreferrer" data-index="${index}">
         <div class="status-dot checking"></div>
         <div class="card-icon">
-          <img src="${CONFIG.ICON_BASE_URL}${service.icon}.png" 
-               alt="${service.name}" 
+          <img src="${CONFIG.ICON_BASE_URL}${service.icon}.png"
+               alt="${service.name}"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
           <span style="display:none;">${service.name.substring(0, 2).toUpperCase()}</span>
         </div>
@@ -36,24 +51,48 @@ function renderCards() {
       </a>
     `;
   }).join('');
+
+  document.getElementById('service-grid').addEventListener('click', onGridClick);
+  document.getElementById('service-grid').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') onGridClick(e);
+  });
+}
+
+function onGridClick(e) {
+  const card = e.target.closest('[data-modal-url]');
+  if (card) openTerminal(card.dataset.modalUrl);
+}
+
+function openTerminal(url) {
+  const modal = document.getElementById('terminal-modal');
+  const iframe = document.getElementById('terminal-iframe');
+  iframe.src = url;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTerminal() {
+  const modal = document.getElementById('terminal-modal');
+  const iframe = document.getElementById('terminal-iframe');
+  modal.classList.remove('open');
+  iframe.src = '';
+  document.body.style.overflow = '';
 }
 
 async function checkStatus(service, index) {
   const card = document.querySelector(`.card[data-index="${index}"]`);
   const dot = card.querySelector('.status-dot');
   const url = getServiceUrl(service.subdomain);
-  
+
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), CONFIG.FETCH_TIMEOUT);
 
   try {
-    // mode: 'no-cors' allows us to ping servers without CORS headers
-    await fetch(url, { 
-      mode: 'no-cors', 
+    await fetch(url, {
+      mode: 'no-cors',
       signal: controller.signal,
       cache: 'no-cache'
     });
-    
     dot.className = 'status-dot online';
   } catch (error) {
     dot.className = 'status-dot offline';
@@ -75,6 +114,16 @@ function init() {
   renderCards();
   updateAllStatuses();
   setInterval(updateAllStatuses, CONFIG.CHECK_INTERVAL);
+
+  document.getElementById('terminal-close').addEventListener('click', closeTerminal);
+
+  document.getElementById('terminal-modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('terminal-modal')) closeTerminal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeTerminal();
+  });
 }
 
 document.addEventListener('DOMContentLoaded', init);

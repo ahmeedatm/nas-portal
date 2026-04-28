@@ -103,7 +103,7 @@ header h1 {
 #service-grid {
   display: grid;
   grid-template-columns: repeat(6, 165px);
-  grid-template-rows: repeat(2, 135px);
+  grid-auto-rows: 135px;
   gap: 30px;
 }
 
@@ -205,4 +205,90 @@ header h1 {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.3; }
+}
+
+/* ─── Terminal modal ────────────────────────────────── */
+
+.terminal-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-modal.open {
+  display: flex;
+  animation: tm-fade-in 0.2s ease;
+}
+
+.terminal-modal-content {
+  width: 88vw;
+  height: 86vh;
+  background: rgba(13, 12, 10, 0.97);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.9);
+  animation: tm-slide-up 0.22s ease;
+}
+
+.terminal-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  background: rgba(20, 19, 17, 0.98);
+  border-bottom: 1px solid var(--hairline);
+  flex-shrink: 0;
+}
+
+.terminal-modal-traffic {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.tm-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--hairline);
+}
+
+.tm-dot--red    { background: #ff5f57; cursor: pointer; }
+.tm-dot--yellow { background: #ffbd2e; }
+.tm-dot--green  { background: #28c840; }
+
+.tm-dot--red:hover { background: #ff3b30; }
+
+.terminal-modal-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+
+#terminal-iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+  background: #000;
+}
+
+@keyframes tm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes tm-slide-up {
+  from { transform: translateY(16px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0)    scale(1);    opacity: 1; }
 }
