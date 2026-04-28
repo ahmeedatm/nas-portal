@@ -1,26 +1,26 @@
 const SERVICES = [
-  { name: 'OpenMediaVault', icon: 'openmediavault', desc: 'Gestion du NAS', port: 80 },
-  { name: 'qBittorrent', icon: 'qbittorrent', desc: 'Téléchargements', port: 8080 },
-  { name: 'Jellyfin', icon: 'jellyfin', desc: 'Média center', port: 8096 },
-  { name: 'Home Assistant', icon: 'home-assistant', desc: 'Domotique', port: 8123 },
-  { name: 'Portainer', icon: 'portainer', desc: 'Docker management', port: 9000 },
-  { name: 'Nginx Proxy Manager', icon: 'nginx-proxy-manager', desc: 'Reverse proxy', port: 8281 },
-  { name: 'Radarr', icon: 'radarr', desc: 'Films', port: 7878 },
-  { name: 'Sonarr', icon: 'sonarr', desc: 'Séries TV', port: 8989 },
-  { name: 'Prowlarr', icon: 'prowlarr', desc: 'Indexeurs', port: 9696 },
-  { name: 'Jellyseerr', icon: 'jellyseerr', desc: 'Demandes médias', port: 5055 },
-  { name: 'n8n', icon: 'n8n', desc: 'Automatisations', port: 5678 },
-  { name: 'Bazarr', icon: 'bazarr', desc: 'Sous-titres', port: 6767 }
+  { name: 'OpenMediaVault', icon: 'openmediavault', desc: 'Gestion du NAS', subdomain: 'omv' },
+  { name: 'qBittorrent', icon: 'qbittorrent', desc: 'Téléchargements', subdomain: 'qbittorrent' },
+  { name: 'Jellyfin', icon: 'jellyfin', desc: 'Média center', subdomain: 'jellyfin' },
+  { name: 'Home Assistant', icon: 'home-assistant', desc: 'Domotique', subdomain: 'homeassistant' },
+  { name: 'Portainer', icon: 'portainer', desc: 'Docker management', subdomain: 'portainer' },
+  { name: 'Nginx Proxy Manager', icon: 'nginx-proxy-manager', desc: 'Reverse proxy', subdomain: 'nginx' },
+  { name: 'Radarr', icon: 'radarr', desc: 'Films', subdomain: 'radarr' },
+  { name: 'Sonarr', icon: 'sonarr', desc: 'Séries TV', subdomain: 'sonarr' },
+  { name: 'Prowlarr', icon: 'prowlarr', desc: 'Indexeurs', subdomain: 'prowlarr' },
+  { name: 'Jellyseerr', icon: 'jellyseerr', desc: 'Demandes médias', subdomain: 'jellyseerr' },
+  { name: 'n8n', icon: 'n8n', desc: 'Automatisations', subdomain: 'n8n' },
+  { name: 'Bazarr', icon: 'bazarr', desc: 'Sous-titres', subdomain: 'bazarr' }
 ];
 
-function getServiceUrl(port) {
-  return `http://${CONFIG.NAS_HOST}:${port}`;
+function getServiceUrl(subdomain) {
+  return `https://${subdomain}.azru.uk`;
 }
 
 function renderCards() {
   const grid = document.getElementById('service-grid');
   grid.innerHTML = SERVICES.map((service, index) => {
-    const url = getServiceUrl(service.port);
+    const url = getServiceUrl(service.subdomain);
     return `
       <a href="${url}" class="card" target="_blank" rel="noopener noreferrer" data-index="${index}">
         <div class="status-dot checking"></div>
@@ -40,7 +40,7 @@ function renderCards() {
 async function checkStatus(service, index) {
   const card = document.querySelector(`.card[data-index="${index}"]`);
   const dot = card.querySelector('.status-dot');
-  const url = getServiceUrl(service.port);
+  const url = getServiceUrl(service.subdomain);
   
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), CONFIG.FETCH_TIMEOUT);
