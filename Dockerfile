@@ -7,7 +7,7 @@ RUN apk add --no-cache gettext
 WORKDIR /usr/share/nginx/html
 
 # Copie des fichiers de l'app
-COPY index.html style.css app.js ./
+COPY index.html style.css app.js bg.mp4 ./
 
 # Script d'entrée pour injecter les variables d'env
 COPY docker-entrypoint.sh /usr/local/bin/

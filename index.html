@@ -5,38 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NAS Portal</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/portainer.png">
 </head>
 <body>
 
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+
   <header>
-    <h1>NAS Portal</h1>
-    <p>Home Lab · Ahmed</p>
+    <svg class="house-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 12L12 3L21 12V21H15V15H9V21H3V12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1>NAS</h1>
+    <span class="header-sub">Homelab</span>
   </header>
 
-  <main>
-    <div id="service-grid" class="grid">
-      <!-- Cards will be injected here by app.js -->
-    </div>
-  </main>
-
-  <footer class="footer-info">
-    <div class="legend-item">
-      <div class="legend-dot online"></div>
-      <span>En ligne</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot checking"></div>
-      <span>Vérification</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dot offline"></div>
-      <span>Hors ligne</span>
-    </div>
-    <div style="margin-left: auto; opacity: 0.7;">
-      Mise à jour toutes les 30s
-    </div>
-  </footer>
+  <div id="service-grid" class="grid"></div>
 
   <script src="config.js"></script>
   <script src="app.js"></script>
