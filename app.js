@@ -10,7 +10,8 @@ const SERVICES = [
   { name: 'Prowlarr', icon: 'prowlarr', desc: 'Indexeurs', subdomain: 'prowlarr' },
   { name: 'Jellyseerr', icon: 'jellyseerr', desc: 'Demandes médias', subdomain: 'jellyseerr' },
   { name: 'n8n', icon: 'n8n', desc: 'Automatisations', subdomain: 'n8n' },
-  { name: 'Bazarr', icon: 'bazarr', desc: 'Sous-titres', subdomain: 'bazarr' }
+  { name: 'Bazarr', icon: 'bazarr', desc: 'Sous-titres', subdomain: 'bazarr' },
+  { name: 'SSH Terminal', icon: 'terminal', desc: 'Accès SSH', subdomain: 'ssh' }
 ];
 
 function getServiceUrl(subdomain) {
