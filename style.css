@@ -207,6 +207,35 @@ header h1 {
   50%       { opacity: 0.3; }
 }
 
+/* ─── SSH button ────────────────────────────────────── */
+
+.ssh-btn {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.ssh-btn:hover {
+  background: var(--surface-elevated);
+  border-color: var(--surface-strong);
+  color: var(--ink);
+}
+
 /* ─── Terminal modal ────────────────────────────────── */
 
 .terminal-modal {
