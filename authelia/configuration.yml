@@ -22,7 +22,7 @@ authentication_backend:
     password:
       algorithm: bcrypt
       bcrypt:
-        iterations: 12
+        cost: 12
 
 access_control:
   default_policy: deny
