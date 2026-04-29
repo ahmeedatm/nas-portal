@@ -14,7 +14,7 @@ services:
   wetty:
     image: wettyoss/wetty
     container_name: wetty
-    command: --ssh-host 192.168.1.16 --ssh-user ahmed --port 3001 --base /
+    command: --ssh-host 192.168.1.16 --ssh-user root --port 3001 --base /
     ports:
       - "3001:3001"
     restart: unless-stopped
@@ -25,7 +25,7 @@ services:
     image: authelia/authelia:latest
     container_name: authelia
     volumes:
-      - ./authelia:/config
+      - /opt/authelia:/config
     ports:
       - "9091:9091"
     restart: unless-stopped

@@ -2,3 +2,4 @@
 /.superpowers
 authelia/db.sqlite3
 authelia/notification.txt
+.playwright-mcp/
