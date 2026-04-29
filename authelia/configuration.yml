@@ -7,6 +7,10 @@ server:
 log:
   level: info
 
+identity_validation:
+  reset_password:
+    jwt_secret: ccd0ea311383be55387f78482a0bfb59f17df21d61ea97d42b3c62843871345e
+
 totp:
   issuer: azru.uk
   period: 30
